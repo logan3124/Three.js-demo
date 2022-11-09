@@ -24,8 +24,8 @@ const geometry = new THREE.SphereBufferGeometry(.5, 64, 64);
 // Materials
 
 const material = new THREE.MeshStandardMaterial()
-material.metalness = 0.7
-material.roughness = 0.2
+material.metalness = 1
+material.roughness = 0.15
 material.normalMap = normalTexture;
 
 material.color = new THREE.Color(0x292929)
@@ -42,14 +42,50 @@ pointLight.position.y = 3
 pointLight.position.z = 4
 scene.add(pointLight)
 
+//Light2
+
 const pointLight2 = new THREE.PointLight(0xff0000, 2)
-// pointLight.position.x = 2
-// pointLight.position.y = 3
-// pointLight.position.z = 4
-pointLight2.position.set(1, 1, 1)
-pointLight2.intensity = 1;
+pointLight2.position.set(-1.86, 1, -1.65)
+pointLight2.intensity = 10;
 
 scene.add(pointLight2)
+
+const light1 = gui.addFolder('Light 1')
+
+light1.add(pointLight2.position, 'y').min(-3).max(3).step(0.01)
+light1.add(pointLight2.position, 'x').min(-6).max(6).step(0.01)
+light1.add(pointLight2.position, 'z').min(-3).max(3).step(0.01)
+light1.add(pointLight2, 'intensity').min(0).max(10).step(0.01)
+
+// const pointLightHelper = new THREE.PointLightHelper(pointLight2, 1)
+// scene.add(pointLightHelper)
+
+//Light3
+
+const pointLight3 = new THREE.PointLight(0xe1ff, 2)
+pointLight3.position.set(2.13, -3, -1.98)
+pointLight3.intensity = 6.8;
+
+scene.add(pointLight3)
+
+const light2 = gui.addFolder('Light 2')
+
+light2.add(pointLight3.position, 'y').min(-3).max(3).step(0.01)
+light2.add(pointLight3.position, 'x').min(-6).max(6).step(0.01)
+light2.add(pointLight3.position, 'z').min(-3).max(3).step(0.01)
+light2.add(pointLight3, 'intensity').min(0).max(10).step(0.01)
+
+const light2Color = {
+    color: 0xff0000
+}
+
+light2.addColor(light2Color, 'color')
+    .onChange(() => {
+        pointLight3.color.set(light2Color.color)
+    })
+
+// const pointLightHelper2 = new THREE.PointLightHelper(pointLight3, 1)
+// scene.add(pointLightHelper2)
 
 /**
  * Sizes
